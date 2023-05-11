@@ -30,21 +30,23 @@ There will be at least one word in s
 #include <string>
 
 int lengthOfLastWord(std::string s) {
-    int space_pos = s.find_last_not_of(' ');
-    if (space_pos == std::string::npos)
-    {
-        return s.length();
-    }
-
-    std::string last_word = s.substr(space_pos+1);
-    return last_word.length();
-
-    }
+    int end = s.length() - 1;
+    while (end >= 0 && s[end] == ' ') end--;
+    if(end < 0) return 0;
+    int start = end;
+    while (start >= 0 && s[start] != ' ') start--;
+    return end - start;
+}
 
 int main ()
 {
-    std::string s = "Hello World";
-    int len = lengthOfLastWord(s);
-    std::cout << "The last word in the string '" << s << "' has a length of: " << len << std::endl;
+    std::string str1 = "Hello World";
+    std::string str2 = "Fly me to the moon";
+    std::string str3 = "luffy is still joyboy";
+ 
+    std::cout << "Length of last word in \"" << str1 << "\": " << lengthOfLastWord(str1) << std::endl;
+    std::cout << "Length of last word in \"" << str2 << "\": " << lengthOfLastWord(str2) << std::endl;
+    std::cout << "Length of last word in \"" << str3 << "\": " << lengthOfLastWord(str3) << std::endl;
+
     return 0;
 }
